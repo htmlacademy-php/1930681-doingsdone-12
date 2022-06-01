@@ -136,14 +136,12 @@ $show_complete_tasks = rand(0, 1);
                                 </label>
                             </td>
                             <td class="task__date"><?= $task["data"]; ?></td>
-                            <td class="task__controls"></td>
-                            </tr>                 
+                            <td class="task__controls"></td>                 
 
                             <td class="task__file">
                                 <a class="download-link" href="#">Home.psd</a>               
                             </td>                            
-                            <td class="task__date"><?= $task["data"]; ?></td>
-                            </tr>   
+			    </tr>   
                     <?php endforeach; ?>
                 </table>
             </main>
