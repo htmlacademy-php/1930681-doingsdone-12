@@ -127,35 +127,23 @@ $show_complete_tasks = rand(0, 1);
 
                 <table class="tasks">
                     <?php foreach ($tasks as $task) : ?>
-                        <?php if ($show_complete_tasks && $task["complete"]) : ?>
-                            <tr class = "tasks_item task task--completed">
+                        <?php if ($show_complete_tasks && $task["complete"]) continue; ?>
+                            <tr class = "tasks_item task <?php if($task["complete"]) echo ' task--completed'; ?>">
                             <td class = "task_select">
                                 <label class = "checkbox task_checkbox">
-                                    <input class="checkbox__input visually-hidden" type="checkbox" checked>
+                                    <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($task["complete"]) echo ' checked'; ?>>
                                     <span class="checkbox__text"><?= $task["name"]; ?></span>
                                 </label>
                             </td>
                             <td class="task__date"><?= $task["data"]; ?></td>
                             <td class="task__controls"></td>
-                            </tr>
-                        <?php endif; ?>
-                        <?php if (!$task["complete"]) : ?> 
-                        <tr class="tasks__item task">
-                            <td class="task__select">
-                                <label class="checkbox task__checkbox">
-                                    <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                                    <span class="checkbox__text"><?= $task["name"]; ?></span>
-                                </label>
-                            </td>
+                            </tr>                 
 
                             <td class="task__file">
-                                <a class="download-link" href="#">Home.psd</a>
-                            </td>
-
+                                <a class="download-link" href="#">Home.psd</a>               
+                            </td>                            
                             <td class="task__date"><?= $task["data"]; ?></td>
-                        </tr>  
-                        <?php endif; ?>
-                            
+                            </tr>   
                     <?php endforeach; ?>
                 </table>
             </main>
