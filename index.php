@@ -127,7 +127,7 @@ $show_complete_tasks = rand(0, 1);
 
                 <table class="tasks">
                     <?php foreach ($tasks as $task) : ?>
-                        <?php if ($show_complete_tasks && $task["complete"]) continue; ?>
+                        <?php if (!$show_complete_tasks && $task["complete"]) continue; ?>
                             <tr class = "tasks_item task <?php if($task["complete"]) echo ' task--completed'; ?>">
                             <td class = "task_select">
                                 <label class = "checkbox task_checkbox">
