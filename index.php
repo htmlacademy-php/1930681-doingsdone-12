@@ -1,5 +1,6 @@
 <?php
 // показывать или нет выполненные задачи
+$show_complete_tasks = rand(0, 1);
 $projects = [
 	'inbox' => 'Входящие', 
 	'study' => 'Учеба', 
@@ -44,9 +45,18 @@ $tasks = [
         'complete' => false
         ],
 ];
-
-
-$show_complete_tasks = rand(0, 1);
+function task_projects ($tasks, $projects)
+{
+   $count = 0;
+   foreach ($tasks as $task)
+   {
+       if($tasks['category'] === $projects)
+       {
+          $count++;
+       };
+   };
+   return $count; 
+};
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -85,13 +95,13 @@ $show_complete_tasks = rand(0, 1);
         <div class="content">
             <section class="content__side">
                 <h2 class="content__side-heading">Проекты</h2>
-
+                
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                         <?php foreach ($projects as $project_name) : ?>
                             <li class="main-navigation__list-item">
                                 <a class="main-navigation__list-item-link" href="#"><?= $project_name; ?></a>
-                                <span class="main-navigation__list-item-count">0</span>
+                                <span class="main-navigation__list-item-count"><?php task_projects ($tasks, $project_name); ?></span>
                             </li>
                         <?php endforeach; ?> 
                     </ul>
@@ -127,8 +137,8 @@ $show_complete_tasks = rand(0, 1);
 
                 <table class="tasks">
                     <?php foreach ($tasks as $task) : ?>
-                        <?php if ($show_complete_tasks && $task["complete"]) continue; ?>
-                            <tr class = "tasks_item task <?php if($task["complete"]) echo ' task--completed'; ?>">
+                        <?php if (!$show_complete_tasks && $task["complete"]) continue; ?>
+                        <tr class = "tasks_item task <?php if($task["complete"]) echo ' task--completed'; ?>">
                             <td class = "task_select">
                                 <label class = "checkbox task_checkbox">
                                     <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($task["complete"]) echo ' checked'; ?>>
@@ -136,14 +146,12 @@ $show_complete_tasks = rand(0, 1);
                                 </label>
                             </td>
                             <td class="task__date"><?= $task["data"]; ?></td>
-                            <td class="task__controls"></td>
-                            </tr>                 
+                            <td class="task__controls"></td>                 
 
                             <td class="task__file">
                                 <a class="download-link" href="#">Home.psd</a>               
                             </td>                            
-                            <td class="task__date"><?= $task["data"]; ?></td>
-                            </tr>   
+			            </tr>   
                     <?php endforeach; ?>
                 </table>
             </main>
