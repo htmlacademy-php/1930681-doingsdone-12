@@ -11,46 +11,52 @@ $tasks = [
         [
         'name' => 'Собеседование в IT компании',
         'data' => '01.12.2019',
-        'category' => $projects["work"],
+        'project' => $projects["work"],
         'complete' => false
         ],
         [
         'name' => 'Выполнить тестовое задание',
         'data' => '25.12.2019',
-        'category' => $projects["work"],
+        'project' => $projects["work"],
         'complete' => false
         ], 
         [
         'name' => 'Сделать задание первого раздела',
         'data' => '21.12.2019',
-        'category' => $projects["study"],
+        'project' => $projects["study"],
         'complete' => true
         ],
         [
         'name' => 'Встреча с другом',
         'data' => '22.12.2019',
-        'category' => $projects["inbox"],
+        'project' => $projects["inbox"],
         'complete' => false
         ],
         [
         'name' => 'Купить корм для кота',
         'data' => null,
-        'category' => $projects["home"],
+        'project' => $projects["home"],
         'complete' => false
         ],
         [
         'name' => 'Заказать пиццу',
         'data' => null,
-        'category' => $projects["home"],
+        'project' => $projects["home"],
         'complete' => false
         ],
 ];
-function task_projects ($tasks, $projects)
+/**
+ * Функция считает количество задач в текущей проекте
+ * @param array $tasks массив задач
+ * @param string $project проект
+ * @return integer количество задач
+ */
+function count_tasks_in_project ($tasks, $project)
 {
    $count = 0;
    foreach ($tasks as $task)
    {
-       if($tasks['category'] === $projects)
+       if ($task['project'] === $project)
        {
           $count++;
        };
@@ -101,7 +107,7 @@ function task_projects ($tasks, $projects)
                         <?php foreach ($projects as $project_name) : ?>
                             <li class="main-navigation__list-item">
                                 <a class="main-navigation__list-item-link" href="#"><?= $project_name; ?></a>
-                                <span class="main-navigation__list-item-count"><?php task_projects ($tasks, $project_name); ?></span>
+                                <span class="main-navigation__list-item-count"><?= count_tasks_in_project ($tasks, $project_name); ?></span>
                             </li>
                         <?php endforeach; ?> 
                     </ul>
