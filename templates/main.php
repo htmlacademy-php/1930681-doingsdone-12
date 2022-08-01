@@ -42,20 +42,27 @@
 
                 <table class="tasks">
                     <?php foreach ($tasks as $task) : ?>
+                        <?php $data = strtotime($task['data']);
+                        $resultdata = ($data - time()) / 3600;
+                        ?>
                         <?php if (!$show_complete_tasks && $task["complete"]) continue; ?>
-                        <tr class = "tasks_item task <?php if($task["complete"]) echo ' task--completed'; ?>">
+                        <tr class = "tasks_item task <?php if ($resultdata <=24): ?> task--important <?php endif; ?>">
                             <td class = "task_select">
                                 <label class = "checkbox task_checkbox">
                                     <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($task["complete"]) echo ' checked'; ?>>
                                     <span class="checkbox__text"><?= $task["name"]; ?></span>
                                 </label>
                             </td>
-                            <td class="task__date"><?= $task["data"]; ?></td>
+                            <td class="task__date"><?= $task['data']; ?></td>
                             <td class="task__controls"></td>                 
 
                             <td class="task__file">
                                 <a class="download-link" href="#">Home.psd</a>               
-                            </td>                            
+                            </td>
+                            <td class="task__date"><?=htmlspecialchars($task['data']);?>
+                            </td>
+                            <td class="task__completed">
+                                <?=htmlspecialchars($task['complete']);?>                            
 			            </tr>   
                     <?php endforeach; ?>
                 </table>
