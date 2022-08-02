@@ -11,37 +11,37 @@ $tasks = [
         [
         'name' => 'Собеседование в IT компании',
         'data' => '01.12.2019',
-        'project' => $projects["work"],
+        'project' => $projects['work'],
         'complete' => false
         ],
         [
         'name' => 'Выполнить тестовое задание',
         'data' => '25.12.2019',
-        'project' => $projects["work"],
+        'project' => $projects['work'],
         'complete' => false
         ], 
         [
         'name' => 'Сделать задание первого раздела',
         'data' => '21.12.2019',
-        'project' => $projects["study"],
+        'project' => $projects['study'],
         'complete' => true
         ],
         [
         'name' => 'Встреча с другом',
         'data' => '22.12.2019',
-        'project' => $projects["inbox"],
+        'project' => $projects['inbox'],
         'complete' => false
         ],
         [
         'name' => 'Купить корм для кота',
         'data' => null,
-        'project' => $projects["home"],
+        'project' => $projects['home'],
         'complete' => false
         ],
         [
         'name' => 'Заказать пиццу',
         'data' => null,
-        'project' => $projects["home"],
+        'project' => $projects['home'],
         'complete' => false
         ],
 ];
