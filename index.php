@@ -1,5 +1,6 @@
 <?php
 // показывать или нет выполненные задачи
+$show_complete_tasks = rand(0, 1);
 $projects = [
 	'inbox' => 'Входящие', 
 	'study' => 'Учеба', 
@@ -10,43 +11,58 @@ $tasks = [
         [
         'name' => 'Собеседование в IT компании',
         'data' => '01.12.2019',
-        'category' => $projects['work'],
+        'project' => $projects['work'],
         'complete' => false
         ],
         [
         'name' => 'Выполнить тестовое задание',
         'data' => '25.12.2019',
-        'category' => $projects['work'],
+        'project' => $projects['work'],
         'complete' => false
         ], 
         [
         'name' => 'Сделать задание первого раздела',
         'data' => '21.12.2019',
-        'category' => $projects['study'],
+        'project' => $projects['study'],
         'complete' => true
         ],
         [
         'name' => 'Встреча с другом',
         'data' => '22.12.2019',
-        'category' => $projects['inbox'],
+        'project' => $projects['inbox'],
         'complete' => false
         ],
         [
         'name' => 'Купить корм для кота',
         'data' => null,
-        'category' => $projects['home'],
+        'project' => $projects['home'],
         'complete' => false
         ],
         [
         'name' => 'Заказать пиццу',
         'data' => null,
-        'category' => $projects['home'],
+        'project' => $projects['home'],
         'complete' => false
         ],
 ];
-
-
-$show_complete_tasks = rand(0, 1);
+/**
+ * Функция считает количество задач в текущей проекте
+ * @param array $tasks массив задач
+ * @param string $project проект
+ * @return integer количество задач
+ */
+function count_tasks_in_project ($tasks, $project)
+{
+   $count = 0;
+   foreach ($tasks as $task)
+   {
+       if ($task['project'] === $project)
+       {
+          $count++;
+       };
+   };
+   return $count; 
+};
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -85,13 +101,13 @@ $show_complete_tasks = rand(0, 1);
         <div class="content">
             <section class="content__side">
                 <h2 class="content__side-heading">Проекты</h2>
-
+                
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                         <?php foreach ($projects as $project_name) : ?>
                             <li class="main-navigation__list-item">
                                 <a class="main-navigation__list-item-link" href="#"><?= $project_name; ?></a>
-                                <span class="main-navigation__list-item-count">0</span>
+                                <span class="main-navigation__list-item-count"><?= count_tasks_in_project ($tasks, $project_name); ?></span>
                             </li>
                         <?php endforeach; ?> 
                     </ul>
@@ -128,7 +144,7 @@ $show_complete_tasks = rand(0, 1);
                 <table class="tasks">
                     <?php foreach ($tasks as $task) : ?>
                         <?php if (!$show_complete_tasks && $task["complete"]) continue; ?>
-                            <tr class = "tasks_item task <?php if($task["complete"]) echo ' task--completed'; ?>">
+                        <tr class = "tasks_item task <?php if($task["complete"]) echo ' task--completed'; ?>">
                             <td class = "task_select">
                                 <label class = "checkbox task_checkbox">
                                     <input class="checkbox__input visually-hidden" type="checkbox" <?php if ($task["complete"]) echo ' checked'; ?>>
@@ -141,7 +157,7 @@ $show_complete_tasks = rand(0, 1);
                             <td class="task__file">
                                 <a class="download-link" href="#">Home.psd</a>               
                             </td>                            
-			    </tr>   
+			            </tr>   
                     <?php endforeach; ?>
                 </table>
             </main>
